@@ -29,6 +29,8 @@ Qijing Wang, Bentian Jiang, Martin D.F. Wong and Evangeline F.Y. Young, “[A2-I
 ~~~bash
 $ git clone https://github.com/cuhk-eda/A2-ILT.git
 $ cd A2-ILT
+$ mkdir result
+$ mkdir output
 ~~~
 
 ### Quick start
