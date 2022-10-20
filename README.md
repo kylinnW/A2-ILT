@@ -47,51 +47,43 @@ Please generate your 'data list' file in the same format as ./dataset/ibm_opc_te
 
 Then, run the GPU-ILT-AP module seprately as follows to manually select good enough attention kernels (by providing different kernel size list to --ref_attn_kernel) that are suitable for your custom data by checking the quality (L2 and pvb), which serves as the reference strategy and action basis for RL agent. (Check [paper](https://dl.acm.org/doi/pdf/10.1145/3489517.3530579) for more details)
 
-~~~bash
+```
 $ python GPU_ILT_AP.py --layout_list PATH_TO_TRAIN_LAYOUTS --ref_attn_kernel YOUR_REF_KERNELS
-~~~
 
 For example:
 
-~~~bash
 $ python GPU_ILT_AP.py --layout_list ./dataset/RL_training_layout_list.txt --ref_attn_kernel 5 30 50 70
-~~~
+```
 
 After that, you can add --create_RL_data arg to generate the 'reference reward' file, which will be saved in PATH_TO_REWARD_LOG provided to --RL_reward_log:
 
-~~~bash
+```
 $ python GPU_ILT_AP.py --layout_list PATH_TO_TRAIN_LAYOUTS --ref_attn_kernel YOUR_REF_KERNELS --create_RL_data --RL_reward_log PATH_TO_REWARD_LOG
-~~~
 
 For example:
 
-~~~bash
 $ python GPU_ILT_AP.py --layout_list ./dataset/RL_training_layout_list.txt --ref_attn_kernel 5 30 50 70 --create_RL_data --RL_reward_log ./dataset/RL_ref_reward.txt
-~~~
+```
 
 Then, run the following to train the RL model, which can be resumed by providing checkpoint path to --resume_ckpt.
 
-~~~bash
+```
 $ python RL_train.py --layout_list PATH_TO_TRAIN_LAYOUTS --ref_attn_kernel YOUR_REF_KERNELS --ref_reward PATH_TO_REWARD_LOG --resume_ckpt None
-~~~
 
 For example:
 
-~~~bash
 $ python RL_train.py --layout_list ./dataset/RL_training_layout_list.txt --ref_attn_kernel 5 30 50 70 --ref_reward ./dataset/RL_ref_reward.txt --resume_ckpt None
-~~~
+```
 
 After training, you can run A2-ILT to evaluate custom test data as follows:
 
-~~~bash
+```
 $ python A2_ILT.py --layout_list PATH_TO_TEST_LAYOUTS --ref_attn_kernel YOUR_REF_KERNELS --log PATH_TO_LOG --ckpt CHECKPOINT_INDEX --save_optimized
-~~~
 
 For example:
 
-~~~bash
 $ python A2_ILT.py --layout_list ./dataset/test_layout_list.txt --ref_attn_kernel 5 30 50 70 --log ./result/custom_test_l2_pvb.txt --ckpt 50 --save_optimized
-~~~
+```
 
 
 ## Citation
@@ -107,9 +99,10 @@ if A2-ILT is helpful for your research, please consider citing:
 ```
 
 ## Acknowledgement
-Thanks to everyone who makes their code available:
+Thanks to everyone who makes their code or data available:
 
 - [Neural-ILT](https://github.com/cuhk-eda/neural-ilt)
+- [GAN-OPC](https://github.com/phdyang007/GAN-OPC)
 - [PPO-PyTorch](https://github.com/nikhilbarhate99/PPO-PyTorch)
 
 ## Contact
